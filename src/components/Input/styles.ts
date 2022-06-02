@@ -13,7 +13,7 @@ export const Container = styled(TextInput).attrs<ContainerProps>(
   height: 56px;
   background-color: transparent;
   border-radius: 12px;
-  font-style: 14px;
+  font-size: 14px;
   padding: 7px 0px;
   padding-left: 20px;
   margin-bottom: 16px;

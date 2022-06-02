@@ -7,5 +7,5 @@ export const Container = styled(LinearGradient).attrs(({ theme }) => ({
   end: { x: 0.5, y: 0.5 },
 }))`
   flex: 1;
-  justify-content: "center";
+  justify-content: center;
 `;
