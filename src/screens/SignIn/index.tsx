@@ -1,8 +1,27 @@
 import React from "react";
+
+import Input from "@components/Input";
+
 import { Container } from "./styles";
 
 const SignIn = () => {
-  return <Container />;
+  return (
+    <Container>
+      <Input
+        placeholder={"E-mail"}
+        type={"secondary"}
+        autoCorrect={false}
+        autoCapitalize={"none"}
+      />
+
+      <Input
+        placeholder={"Senha"}
+        type={"secondary"}
+        autoCorrect={false}
+        secureTextEntry
+      />
+    </Container>
+  );
 };
 
 export default SignIn;
