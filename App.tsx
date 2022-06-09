@@ -7,6 +7,8 @@ import { ThemeProvider } from "styled-components";
 
 import SignIn from "@screens/SignIn";
 
+import { AuthProvider } from "@hooks/auth";
+
 import theme from "./src/theme";
 
 const App = () => {
@@ -22,7 +24,9 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <StatusBar style={"light"} backgroundColor={"transparent"} translucent />
-      <SignIn />
+      <AuthProvider>
+        <SignIn />
+      </AuthProvider>
     </ThemeProvider>
   );
 };
