@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "470257044567",
+    "project_id": "go-pizza-6284f",
+    "storage_bucket": "go-pizza-6284f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:470257044567:android:96d5e281a698d26e106712",
+        "android_client_info": {
+          "package_name": "com.gopizza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "470257044567-u8ic6p5jp5jdfn0m56h75oaodlfe2rua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlUlRFJBkWn3S_-K74TT9gbb61pWY2Nrc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "470257044567-u8ic6p5jp5jdfn0m56h75oaodlfe2rua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:470257044567:android:8aa065ef8ce0b4fc106712",
+        "android_client_info": {
+          "package_name": "com.gopizza.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "470257044567-gpjp9c0ucb9l117iqgrjluk6agmlrd6g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gopizza.app",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "470257044567-u8ic6p5jp5jdfn0m56h75oaodlfe2rua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlUlRFJBkWn3S_-K74TT9gbb61pWY2Nrc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "470257044567-u8ic6p5jp5jdfn0m56h75oaodlfe2rua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
