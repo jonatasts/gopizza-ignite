@@ -1,8 +1,14 @@
-import React, { createContext, useContext, ReactNode, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useEffect,
+} from "react";
 import { Alert } from "react-native";
-
 import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type User = {
   id: string;
@@ -12,6 +18,7 @@ type User = {
 
 type AuthContextData = {
   singIn: (email: string, password: string) => Promise<void>;
+  singOut: () => Promise<void>;
   isLoginIn: boolean;
   user: User | null;
 };
@@ -19,6 +26,8 @@ type AuthContextData = {
 type AuthProviderProps = {
   children: ReactNode;
 };
+
+const USER_COLLECTION = "@gopizza:users";
 
 export const AuthContext = createContext({} as AuthContextData);
 
@@ -40,7 +49,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
           .collection("users")
           .doc(account.user.uid)
           .get()
-          .then((profile) => {
+          .then(async (profile) => {
             if (profile.exists) {
               const { name, isAdmin } = profile.data() as User;
 
@@ -50,6 +59,10 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
                 isAdmin,
               };
 
+              await AsyncStorage.setItem(
+                USER_COLLECTION,
+                JSON.stringify(userData)
+              );
               setUser(userData);
               console.log("Login efetuado com sucesso!", userData);
             }
@@ -75,10 +88,34 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       .finally(() => setIsLoginIn(false));
   };
 
+  const loadUserStorageData = async () => {
+    setIsLoginIn(true);
+
+    const storedUser = await AsyncStorage.getItem(USER_COLLECTION);
+
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+      console.log(storedUser);
+    }
+
+    setIsLoginIn(false);
+  };
+
+  const singOut = async () => {
+    await auth().signOut();
+    await AsyncStorage.removeItem(USER_COLLECTION);
+    setUser(null);
+  };
+
+  useEffect(() => {
+    loadUserStorageData();
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
         singIn,
+        singOut,
         isLoginIn,
         user,
       }}
