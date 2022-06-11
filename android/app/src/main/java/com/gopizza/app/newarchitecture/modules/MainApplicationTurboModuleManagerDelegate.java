@@ -1,4 +1,4 @@
-package com.gopizza.newarchitecture.modules;
+package com.gopizza.app.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;
