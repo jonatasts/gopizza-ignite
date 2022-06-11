@@ -19,6 +19,7 @@ type User = {
 type AuthContextData = {
   singIn: (email: string, password: string) => Promise<void>;
   singOut: () => Promise<void>;
+  forgotPassword: (email: string) => Promise<void>;
   isLoginIn: boolean;
   user: User | null;
 };
@@ -107,6 +108,26 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     setUser(null);
   };
 
+  const forgotPassword = async (email: string) => {
+    if (!email) {
+      return Alert.alert("Redefinir senha", "Informe o e-mail!");
+    }
+
+    auth()
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        Alert.alert(
+          "Enviamos um link no seu e-mail para você redefinir sua senha! Pode estar na sua caixa de Spam."
+        );
+      })
+      .catch(() =>
+        Alert.alert(
+          "Redefinir senha",
+          "Não foi possível enviar o e-mail para redefinir sua senha!"
+        )
+      );
+  };
+
   useEffect(() => {
     loadUserStorageData();
   }, []);
@@ -116,6 +137,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       value={{
         singIn,
         singOut,
+        forgotPassword,
         isLoginIn,
         user,
       }}

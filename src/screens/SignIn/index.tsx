@@ -19,12 +19,16 @@ import {
 
 const SignIn = () => {
   const behavior = Platform.OS === "ios" ? "padding" : undefined;
-  const { singIn, isLoginIn } = useAuth();
+  const { singIn, isLoginIn, forgotPassword } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const onSignIn = () => {
     singIn(email, password);
+  };
+
+  const onForgotPassword = () => {
+    forgotPassword(email);
   };
 
   return (
@@ -50,7 +54,7 @@ const SignIn = () => {
             onChangeText={setPassword}
           />
 
-          <ForgotPasswordButton>
+          <ForgotPasswordButton onPress={onForgotPassword}>
             <ForgotPasswordButtonLabel>
               Esqueci minha senha
             </ForgotPasswordButtonLabel>
