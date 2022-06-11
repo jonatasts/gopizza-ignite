@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { KeyboardAvoidingView, Platform, View } from "react-native";
 
 import Input from "@components/Input";
 import Button from "@components/Button";
+
+import { useAuth } from "@hooks/auth";
 
 import BrandImg from "@assets/brand.png";
 
@@ -17,6 +19,13 @@ import {
 
 const SignIn = () => {
   const behavior = Platform.OS === "ios" ? "padding" : undefined;
+  const { singIn, isLoginIn } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onSignIn = () => {
+    singIn(email, password);
+  };
 
   return (
     <Container>
@@ -30,6 +39,7 @@ const SignIn = () => {
             type={"secondary"}
             autoCorrect={false}
             autoCapitalize={"none"}
+            onChangeText={setEmail}
           />
 
           <Input
@@ -37,6 +47,7 @@ const SignIn = () => {
             type={"secondary"}
             autoCorrect={false}
             secureTextEntry
+            onChangeText={setPassword}
           />
 
           <ForgotPasswordButton>
@@ -45,7 +56,12 @@ const SignIn = () => {
             </ForgotPasswordButtonLabel>
           </ForgotPasswordButton>
 
-          <Button title={"Entrar"} type={"secondary"} />
+          <Button
+            title={"Entrar"}
+            type={"secondary"}
+            isLoading={isLoginIn}
+            onPress={onSignIn}
+          />
         </Content>
       </KeyboardAvoidingView>
     </Container>
