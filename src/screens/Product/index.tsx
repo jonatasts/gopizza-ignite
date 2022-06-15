@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "styled-components/native";
 
 import { Container, Header, Title } from "./styles";
+import ButtonBack from "@components/ButtonBack";
 
 const Product = () => {
   const behavior = Platform.OS === "ios" ? "padding" : undefined;
@@ -12,6 +13,7 @@ const Product = () => {
   return (
     <Container behavior={behavior}>
       <Header>
+        <ButtonBack />
         <Title>Cadastrar</Title>
         <TouchableOpacity>
           <MaterialCommunityIcons
