@@ -3,8 +3,10 @@ import { Platform, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "styled-components/native";
 
-import { Container, Header, Title } from "./styles";
 import ButtonBack from "@components/ButtonBack";
+import Photo from "@components/Photo";
+
+import { Container, Header, Title } from "./styles";
 
 const Product = () => {
   const behavior = Platform.OS === "ios" ? "padding" : undefined;
@@ -23,6 +25,8 @@ const Product = () => {
           />
         </TouchableOpacity>
       </Header>
+
+      <Photo uri={""} />
     </Container>
   );
 };
