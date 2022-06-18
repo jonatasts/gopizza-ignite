@@ -3,8 +3,15 @@
     "name": "GoPizza",
     "slug": "GoPizza",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
+    "assetBundlePatterns": ["**/*"],
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Permitir $(PRODUCT_NAME) acessar as fotos do seu dispositivo",
+          "cameraPermission": "Permitir $(PRODUCT_NAME) acessar sua câmera"
+        }
+      ]
     ]
   }
 }
