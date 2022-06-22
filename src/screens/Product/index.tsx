@@ -6,6 +6,7 @@ import * as ImagePicker from "expo-image-picker";
 
 import ButtonBack from "@components/ButtonBack";
 import Photo from "@components/Photo";
+import InputPrice from "@components/InputPrice";
 
 import { Container, Header, PickImageButton, Title, Upload } from "./styles";
 
@@ -54,6 +55,10 @@ const Product = () => {
           onPress={handlePickImage}
         />
       </Upload>
+
+      <InputPrice size={"P"} />
+      <InputPrice size={"M"} />
+      <InputPrice size={"G"} />
     </Container>
   );
 };
