@@ -7,8 +7,22 @@ import * as ImagePicker from "expo-image-picker";
 import ButtonBack from "@components/ButtonBack";
 import Photo from "@components/Photo";
 import InputPrice from "@components/InputPrice";
+import Input from "@components/Input";
 
-import { Container, Header, PickImageButton, Title, Upload } from "./styles";
+import {
+  Container,
+  Header,
+  PickImageButton,
+  Title,
+  Upload,
+  Form,
+  Label,
+  InputGroup,
+  InputGroupHeader,
+  MaxCharacters,
+  Content,
+} from "./styles";
+import Button from "@components/Button";
 
 const Product = () => {
   const behavior = Platform.OS === "ios" ? "padding" : undefined;
@@ -35,30 +49,54 @@ const Product = () => {
 
   return (
     <Container behavior={behavior}>
-      <Header>
-        <ButtonBack />
-        <Title>Cadastrar</Title>
-        <TouchableOpacity>
-          <MaterialCommunityIcons
-            name={"trash-can-outline"}
-            size={24}
-            color={COLORS.TITLE}
+      <Content>
+        <Header>
+          <ButtonBack />
+          <Title>Cadastrar</Title>
+          <TouchableOpacity>
+            <MaterialCommunityIcons
+              name={"trash-can-outline"}
+              size={24}
+              color={COLORS.TITLE}
+            />
+          </TouchableOpacity>
+        </Header>
+
+        <Upload>
+          <Photo uri={image} />
+          <PickImageButton
+            title="Carregar"
+            type={"secondary"}
+            onPress={handlePickImage}
           />
-        </TouchableOpacity>
-      </Header>
+        </Upload>
+        <Form>
+          <InputGroup>
+            <Label>Nome</Label>
 
-      <Upload>
-        <Photo uri={image} />
-        <PickImageButton
-          title="Carregar"
-          type={"secondary"}
-          onPress={handlePickImage}
-        />
-      </Upload>
+            <Input />
+          </InputGroup>
 
-      <InputPrice size={"P"} />
-      <InputPrice size={"M"} />
-      <InputPrice size={"G"} />
+          <InputGroup>
+            <InputGroupHeader>
+              <Label>Descrição</Label>
+              <MaxCharacters>0 de 60 caracteres</MaxCharacters>
+            </InputGroupHeader>
+
+            <Input multiline maxLength={60} style={{ height: 80 }} />
+          </InputGroup>
+
+          <InputGroup>
+            <Label>Tamanhos e preços</Label>
+
+            <InputPrice size={"P"} />
+            <InputPrice size={"M"} />
+            <InputPrice size={"G"} />
+          </InputGroup>
+
+          <Button title={"Cadastrar pizza"} type={"secondary"} />
+        </Form>
+      </Content>
     </Container>
   );
 };
