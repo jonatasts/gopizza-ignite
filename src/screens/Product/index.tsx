@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Platform, TouchableOpacity } from "react-native";
+import { Alert, Platform, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "styled-components/native";
 import * as ImagePicker from "expo-image-picker";
@@ -51,6 +51,31 @@ const Product = () => {
         setImage("");
       }
     }
+  };
+
+  const validateFields = () => {
+    if (!image) {
+      return Alert.alert("Cadastro", "Selecione a imagem da Pizza!");
+    }
+
+    if (!name.trim()) {
+      return Alert.alert("Cadastro", "Informe o nome da Pizza!");
+    }
+
+    if (!description.trim()) {
+      return Alert.alert("Cadastro", "Informe a descrição da Pizza!");
+    }
+
+    if (!priceSizeP || !priceSizeM || !priceSizeG) {
+      return Alert.alert(
+        "Cadastro",
+        "Informe o preço de todos os tamanhos da Pizza!"
+      );
+    }
+  };
+
+  const onSubmit = () => {
+    validateFields();
   };
 
   return (
@@ -122,6 +147,7 @@ const Product = () => {
             title={"Cadastrar pizza"}
             type={"secondary"}
             isLoading={isLoading}
+            onPress={onSubmit}
           />
         </Form>
       </Content>
