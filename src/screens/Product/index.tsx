@@ -28,8 +28,6 @@ const Product = () => {
         setImage(result.uri);
       } else {
         setImage("");
-        // setProgress("0");
-        // setBytesTransferred("");
       }
     }
   };
