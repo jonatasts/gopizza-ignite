@@ -28,6 +28,12 @@ const Product = () => {
   const behavior = Platform.OS === "ios" ? "padding" : undefined;
   const { COLORS } = useTheme();
   const [image, setImage] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [priceSizeP, setPriceSizeP] = useState("");
+  const [priceSizeM, setPriceSizeM] = useState("");
+  const [priceSizeG, setPriceSizeG] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handlePickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -74,7 +80,7 @@ const Product = () => {
           <InputGroup>
             <Label>Nome</Label>
 
-            <Input />
+            <Input onChangeText={setName} value={name} />
           </InputGroup>
 
           <InputGroup>
@@ -83,18 +89,40 @@ const Product = () => {
               <MaxCharacters>0 de 60 caracteres</MaxCharacters>
             </InputGroupHeader>
 
-            <Input multiline maxLength={60} style={{ height: 80 }} />
+            <Input
+              onChangeText={setDescription}
+              value={description}
+              multiline
+              maxLength={60}
+              style={{ height: 80 }}
+            />
           </InputGroup>
 
           <InputGroup>
             <Label>Tamanhos e preços</Label>
 
-            <InputPrice size={"P"} />
-            <InputPrice size={"M"} />
-            <InputPrice size={"G"} />
+            <InputPrice
+              size={"P"}
+              onChangeText={setPriceSizeP}
+              value={priceSizeP}
+            />
+            <InputPrice
+              size={"M"}
+              onChangeText={setPriceSizeM}
+              value={priceSizeM}
+            />
+            <InputPrice
+              size={"G"}
+              onChangeText={setPriceSizeG}
+              value={priceSizeG}
+            />
           </InputGroup>
 
-          <Button title={"Cadastrar pizza"} type={"secondary"} />
+          <Button
+            title={"Cadastrar pizza"}
+            type={"secondary"}
+            isLoading={isLoading}
+          />
         </Form>
       </Content>
     </Container>
