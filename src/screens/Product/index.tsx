@@ -3,6 +3,8 @@ import { Alert, Platform, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "styled-components/native";
 import * as ImagePicker from "expo-image-picker";
+import firestore from "@react-native-firebase/firestore";
+import storage from "@react-native-firebase/storage";
 
 import ButtonBack from "@components/ButtonBack";
 import Photo from "@components/Photo";
@@ -53,7 +55,7 @@ const Product = () => {
     }
   };
 
-  const validateFields = () => {
+  const validateFields = (isLoading = false) => {
     if (!image) {
       return Alert.alert("Cadastro", "Selecione a imagem da Pizza!");
     }
@@ -72,10 +74,54 @@ const Product = () => {
         "Informe o preço de todos os tamanhos da Pizza!"
       );
     }
+
+    setIsLoading(isLoading);
+  };
+
+  const cleanFields = () => {
+    setImage("");
+    setName("");
+    setDescription("");
+    setPriceSizeP("");
+    setPriceSizeM("");
+    setPriceSizeG("");
+    setIsLoading(false);
   };
 
   const onSubmit = () => {
-    validateFields();
+    validateFields(true);
+
+    let photoUrl: string;
+    const fileName = new Date().getTime();
+    const reference = storage().ref(`/pizzas/${fileName}.png`);
+
+    reference
+      .putFile(image) // URI da imagem
+      .then(async () => {
+        photoUrl = await reference.getDownloadURL();
+
+        firestore()
+          .collection("pizzas")
+          .add({
+            name,
+            name_insensitive: name.toLocaleLowerCase().trim(),
+            prices_sizes: {
+              p: priceSizeP,
+              m: priceSizeM,
+              g: priceSizeG,
+            },
+            photo_url: photoUrl,
+            photo_path: reference.fullPath,
+          })
+          .then(() => {
+            Alert.alert("Cadastro", "Pizza cadastrada com sucesso!");
+            cleanFields();
+          })
+          .catch(() =>
+            Alert.alert("Cadastro", "Não foi possível cadastrar a pizza!")
+          );
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -145,7 +191,6 @@ const Product = () => {
 
           <Button
             title={"Cadastrar pizza"}
-            type={"secondary"}
             isLoading={isLoading}
             onPress={onSubmit}
           />
