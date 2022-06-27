@@ -13,6 +13,9 @@ import {
   Greeting,
   GreetingEmoji,
   GreetingText,
+  Title,
+  MenuHeader,
+  MenuItemsNumber,
 } from "./styles";
 
 const Home = () => {
@@ -32,6 +35,11 @@ const Home = () => {
       </Header>
 
       <Search onSearch={() => {}} onClear={() => {}} />
+
+      <MenuHeader>
+        <Title>Cardápio</Title>
+        <MenuItemsNumber>10 Pizzas</MenuItemsNumber>
+      </MenuHeader>
     </Container>
   );
 };
