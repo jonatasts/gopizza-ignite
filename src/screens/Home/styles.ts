@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import { StyleSheet } from "react-native";
 
 export const Container = styled.KeyboardAvoidingView`
   flex: 1;
@@ -72,3 +73,11 @@ export const Title = styled.Text`
     color: ${theme.COLORS.SECONDARY_900};
   `};
 `;
+
+export default StyleSheet.create({
+  listContainer: {
+    paddingTop: 20,
+    paddingBottom: 125,
+    marginHorizontal: 24,
+  },
+});

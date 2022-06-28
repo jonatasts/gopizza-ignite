@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Alert, TouchableOpacity } from "react-native";
+import React, { useEffect, useMemo, useState } from "react";
+import { Alert, FlatList, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "styled-components/native";
 import firestore from "@react-native-firebase/firestore";
@@ -10,7 +10,7 @@ import { ProductProps } from "@components/ProductCard/types";
 
 import happyEmoji from "@assets/happy.png";
 
-import {
+import styles, {
   Container,
   Header,
   Greeting,
@@ -22,6 +22,7 @@ import {
 } from "./styles";
 
 const Home = () => {
+  const [pizzas, setPizzas] = useState<ProductProps[]>([]);
   const { COLORS } = useTheme();
 
   const loadPizzas = (value = "") => {
@@ -40,11 +41,18 @@ const Home = () => {
             ...doc.data(),
           };
         }) as ProductProps[];
+
+        console.log("Pizzas loaded successfully...");
+        setPizzas(data);
       })
       .catch((error) => {
         Alert.alert("Consulta", "Não foi possível realizar a consulta");
       });
   };
+
+  const formatedMenuItemsNumber = useMemo(() => {
+    return pizzas.length === 0 ? "0 Pizzas" : `${pizzas.length} Pizza(s)`;
+  }, [pizzas]);
 
   useEffect(() => {
     loadPizzas();
@@ -67,17 +75,15 @@ const Home = () => {
 
       <MenuHeader>
         <Title>Cardápio</Title>
-        <MenuItemsNumber>10 Pizzas</MenuItemsNumber>
+        <MenuItemsNumber>{formatedMenuItemsNumber}</MenuItemsNumber>
       </MenuHeader>
 
-      <ProductCard
-        data={{
-          id: "1",
-          name: "Pizza",
-          description: "Massa e molho",
-          photoUrl:
-            "https://firebasestorage.googleapis.com/v0/b/go-pizza-6284f.appspot.com/o/pizzas%2F1655943561004.png?alt=media&token=194bfea0-bcbf-4c0a-8f1a-03af25f6dc71",
-        }}
+      <FlatList
+        data={pizzas}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <ProductCard data={item} />}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.listContainer}
       />
     </Container>
   );
