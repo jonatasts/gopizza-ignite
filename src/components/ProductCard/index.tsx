@@ -21,7 +21,7 @@ const ProductCard = ({ data, ...rest }: Props) => {
   return (
     <Container>
       <Content {...rest}>
-        <Image source={{ uri: data.photoUrl }} />
+        <Image source={{ uri: data.photo_url }} />
 
         <Details>
           <Identification>

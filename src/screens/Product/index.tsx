@@ -91,14 +91,14 @@ const Product = () => {
   const onSubmit = () => {
     validateFields(true);
 
-    let photoUrl: string;
+    let photo_url: string;
     const fileName = new Date().getTime();
     const reference = storage().ref(`/pizzas/${fileName}.png`);
 
     reference
       .putFile(image) // URI da imagem
       .then(async () => {
-        photoUrl = await reference.getDownloadURL();
+        photo_url = await reference.getDownloadURL();
 
         firestore()
           .collection("pizzas")
@@ -110,7 +110,7 @@ const Product = () => {
               m: priceSizeM,
               g: priceSizeG,
             },
-            photo_url: photoUrl,
+            photo_url: photo_url,
             photo_path: reference.fullPath,
           })
           .then(() => {
