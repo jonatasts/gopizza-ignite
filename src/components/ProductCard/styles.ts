@@ -5,7 +5,7 @@ export const Container = styled.ScrollView`
   width: 100%;
 `;
 
-export const Content = styled.View`
+export const Content = styled(RectButton)`
   flex-direction: row;
   align-items: center;
 `;

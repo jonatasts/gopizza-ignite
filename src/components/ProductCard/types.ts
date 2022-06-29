@@ -9,4 +9,4 @@ export type ProductProps = {
 
 export type Props = {
   data: ProductProps;
-};
+} & RectButtonProps;
