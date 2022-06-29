@@ -23,6 +23,7 @@ import styles, {
 
 const Home = () => {
   const [pizzas, setPizzas] = useState<ProductProps[]>([]);
+  const [search, setSearch] = useState("");
   const { COLORS } = useTheme();
 
   const loadPizzas = (value = "") => {
@@ -50,6 +51,17 @@ const Home = () => {
       });
   };
 
+  const onSearch = () => {
+    if (search !== "") {
+      loadPizzas(search);
+    }
+  };
+
+  const onClearSearch = () => {
+    setSearch("");
+    loadPizzas();
+  };
+
   const formatedMenuItemsNumber = useMemo(() => {
     return pizzas.length === 0 ? "0 Pizzas" : `${pizzas.length} Pizza(s)`;
   }, [pizzas]);
@@ -71,7 +83,12 @@ const Home = () => {
         </TouchableOpacity>
       </Header>
 
-      <Search onSearch={() => {}} onClear={() => {}} />
+      <Search
+        onChangeText={setSearch}
+        value={search}
+        onSearch={onSearch}
+        onClear={onClearSearch}
+      />
 
       <MenuHeader>
         <Title>Cardápio</Title>
