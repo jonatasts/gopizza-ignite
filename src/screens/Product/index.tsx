@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, Platform, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "styled-components/native";
@@ -29,10 +29,13 @@ import {
 } from "./styles";
 import Button from "@components/Button";
 
+import { PizzaProps } from "./types";
+
 const Product = () => {
   const behavior = Platform.OS === "ios" ? "padding" : undefined;
   const { COLORS } = useTheme();
   const [image, setImage] = useState("");
+  const [photoPath, setPhotoPath] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [priceSizeP, setPriceSizeP] = useState("");
@@ -129,6 +132,27 @@ const Product = () => {
       })
       .catch((error) => console.log(error));
   };
+
+  useEffect(() => {
+    if (id) {
+      firestore()
+        .collection("pizzas")
+        .doc(id)
+        .get()
+        .then((response) => {
+          const product = response.data() as PizzaProps;
+
+          setName(product.name);
+          setImage(product.photo_url);
+          setPhotoPath(product.photo_path);
+          setDescription(product.description);
+          setPriceSizeP(product.prices_sizes.p);
+          setPriceSizeM(product.prices_sizes.m);
+          setPriceSizeG(product.prices_sizes.g);
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [id]);
 
   return (
     <Container behavior={behavior}>
