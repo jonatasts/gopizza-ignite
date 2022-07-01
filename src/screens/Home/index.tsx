@@ -20,6 +20,7 @@ import styles, {
   Title,
   MenuHeader,
   MenuItemsNumber,
+  NewProductButton,
 } from "./styles";
 
 const Home = () => {
@@ -68,6 +69,10 @@ const Home = () => {
     navigation.navigate("product", { id });
   };
 
+  const onNewProduct = () => {
+    navigation.navigate("product", {});
+  };
+
   const formatedMenuItemsNumber = useMemo(() => {
     return pizzas.length === 0 ? "0 Pizzas" : `${pizzas.length} Pizza(s)`;
   }, [pizzas]);
@@ -109,6 +114,12 @@ const Home = () => {
         )}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.listContainer}
+      />
+
+      <NewProductButton
+        title={"Cadastrar Pizza"}
+        type={"secondary"}
+        onPress={onNewProduct}
       />
     </Container>
   );

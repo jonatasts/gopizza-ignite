@@ -1,7 +1,12 @@
 import styled, { css } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import {
+  getBottomSpace,
+  getStatusBarHeight,
+} from "react-native-iphone-x-helper";
 import { StyleSheet } from "react-native";
+
+import Button from "@components/Button";
 
 export const Container = styled.KeyboardAvoidingView`
   flex: 1;
@@ -81,3 +86,8 @@ export default StyleSheet.create({
     marginHorizontal: 24,
   },
 });
+
+export const NewProductButton = styled(Button)`
+  margin: 0 24px;
+  margin-bottom: ${getBottomSpace() + 12}px;
+`;
