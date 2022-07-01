@@ -68,25 +68,23 @@ const Product = () => {
 
   const validateFields = (isLoading = false) => {
     if (!image) {
-      return Alert.alert("Cadastro", "Selecione a imagem da Pizza!");
+      return "Selecione a imagem da Pizza!";
     }
 
     if (!name.trim()) {
-      return Alert.alert("Cadastro", "Informe o nome da Pizza!");
+      return "Informe o nome da Pizza!";
     }
 
     if (!description.trim()) {
-      return Alert.alert("Cadastro", "Informe a descrição da Pizza!");
+      return "Informe a descrição da Pizza!";
     }
 
     if (!priceSizeP || !priceSizeM || !priceSizeG) {
-      return Alert.alert(
-        "Cadastro",
-        "Informe o preço de todos os tamanhos da Pizza!"
-      );
+      return "Informe o preço de todos os tamanhos da Pizza!";
     }
 
     setIsLoading(isLoading);
+    return "success";
   };
 
   const cleanFields = () => {
@@ -100,8 +98,9 @@ const Product = () => {
   };
 
   const onSubmit = () => {
-    validateFields(true);
+    const status = validateFields(true);
 
+    if (status == "success") {
     let photo_url: string;
     const fileName = new Date().getTime();
     const reference = storage().ref(`/pizzas/${fileName}.png`);
@@ -114,6 +113,7 @@ const Product = () => {
         firestore()
           .collection("pizzas")
           .add({
+              description,
             name,
             name_insensitive: name.toLocaleLowerCase().trim(),
             prices_sizes: {
@@ -125,14 +125,20 @@ const Product = () => {
             photo_path: reference.fullPath,
           })
           .then(() => {
-            Alert.alert("Cadastro", "Pizza cadastrada com sucesso!");
             cleanFields();
+              navigation.reset({
+                index: 1,
+                routes: [{ name: "home" }],
+              });
           })
           .catch(() =>
             Alert.alert("Cadastro", "Não foi possível cadastrar a pizza!")
           );
       })
       .catch((error) => console.log(error));
+    } else {
+      return Alert.alert("Cadastro", status);
+    }
   };
 
   const goBack = () => {
