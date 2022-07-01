@@ -6,6 +6,7 @@ import * as ImagePicker from "expo-image-picker";
 import firestore from "@react-native-firebase/firestore";
 import storage from "@react-native-firebase/storage";
 import { useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 import ButtonBack from "@components/ButtonBack";
 import Photo from "@components/Photo";
@@ -42,6 +43,7 @@ const Product = () => {
   const [priceSizeM, setPriceSizeM] = useState("");
   const [priceSizeG, setPriceSizeG] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigation();
 
   const route = useRoute();
   const { id } = route.params as ProductNavigationProps;
@@ -133,6 +135,10 @@ const Product = () => {
       .catch((error) => console.log(error));
   };
 
+  const goBack = () => {
+    navigation.goBack();
+  };
+
   useEffect(() => {
     if (id) {
       firestore()
@@ -158,7 +164,7 @@ const Product = () => {
     <Container behavior={behavior}>
       <Content>
         <Header>
-          <ButtonBack />
+          <ButtonBack onPress={goBack} />
           <Title>Cadastrar</Title>
           <TouchableOpacity>
             <MaterialCommunityIcons
