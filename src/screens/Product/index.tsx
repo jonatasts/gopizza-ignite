@@ -171,7 +171,7 @@ const Product = () => {
       <Content>
         <Header>
           <ButtonBack onPress={goBack} />
-          <Title>{!id ? "Cadastrar" : "Detalhes"}</Title>
+          <Title>{!id ? "Cadastrar" : name}</Title>
 
           {id ? (
             <TouchableOpacity>
@@ -206,7 +206,9 @@ const Product = () => {
           <InputGroup>
             <InputGroupHeader>
               <Label>Descrição</Label>
-              <MaxCharacters>0 de 60 caracteres</MaxCharacters>
+              <MaxCharacters>
+                {description?.length ?? 0} de 60 caracteres
+              </MaxCharacters>
             </InputGroupHeader>
 
             <Input
