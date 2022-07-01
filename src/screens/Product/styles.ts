@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import { StyleSheet } from "react-native";
+
 import Button from "@components/Button";
 
 export const Container = styled.KeyboardAvoidingView`
@@ -83,3 +85,9 @@ export const MaxCharacters = styled.Text`
     color: ${theme.COLORS.SECONDARY_900};
   `};
 `;
+
+export default StyleSheet.create({
+  emptyView: {
+    width: 20,
+  },
+});

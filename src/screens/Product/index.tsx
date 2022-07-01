@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Platform, TouchableOpacity } from "react-native";
+import { Alert, Platform, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "styled-components/native";
 import * as ImagePicker from "expo-image-picker";
@@ -15,7 +15,7 @@ import Input from "@components/Input";
 
 import { ProductNavigationProps } from "src/@types/navigation";
 
-import {
+import styles, {
   Container,
   Header,
   PickImageButton,
@@ -165,23 +165,30 @@ const Product = () => {
       <Content>
         <Header>
           <ButtonBack onPress={goBack} />
-          <Title>Cadastrar</Title>
-          <TouchableOpacity>
-            <MaterialCommunityIcons
-              name={"trash-can-outline"}
-              size={24}
-              color={COLORS.TITLE}
-            />
-          </TouchableOpacity>
+          <Title>{!id ? "Cadastrar" : "Detalhes"}</Title>
+
+          {id ? (
+            <TouchableOpacity>
+              <MaterialCommunityIcons
+                name={"trash-can-outline"}
+                size={24}
+                color={COLORS.TITLE}
+              />
+            </TouchableOpacity>
+          ) : (
+            <View style={styles.emptyView} />
+          )}
         </Header>
 
         <Upload>
           <Photo uri={image} />
-          <PickImageButton
-            title="Carregar"
-            type={"secondary"}
-            onPress={handlePickImage}
-          />
+          {!id && (
+            <PickImageButton
+              title="Carregar"
+              type={"secondary"}
+              onPress={handlePickImage}
+            />
+          )}
         </Upload>
         <Form>
           <InputGroup>
@@ -225,11 +232,13 @@ const Product = () => {
             />
           </InputGroup>
 
-          <Button
-            title={"Cadastrar pizza"}
-            isLoading={isLoading}
-            onPress={onSubmit}
-          />
+          {!id && (
+            <Button
+              title={"Cadastrar pizza"}
+              isLoading={isLoading}
+              onPress={onSubmit}
+            />
+          )}
         </Form>
       </Content>
     </Container>

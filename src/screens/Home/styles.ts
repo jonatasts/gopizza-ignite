@@ -79,6 +79,11 @@ export const Title = styled.Text`
   `};
 `;
 
+export const NewProductButton = styled(Button)`
+  margin: 0 24px;
+  margin-bottom: ${getBottomSpace() + 12}px;
+`;
+
 export default StyleSheet.create({
   listContainer: {
     paddingTop: 20,
@@ -86,8 +91,3 @@ export default StyleSheet.create({
     marginHorizontal: 24,
   },
 });
-
-export const NewProductButton = styled(Button)`
-  margin: 0 24px;
-  margin-bottom: ${getBottomSpace() + 12}px;
-`;
