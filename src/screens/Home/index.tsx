@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { Alert, FlatList, TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "styled-components/native";
 import firestore from "@react-native-firebase/firestore";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 import Search from "@components/Search";
 import ProductCard from "@components/ProductCard";
@@ -77,9 +77,11 @@ const Home = () => {
     return pizzas.length === 0 ? "0 Pizzas" : `${pizzas.length} Pizza(s)`;
   }, [pizzas]);
 
-  useEffect(() => {
-    loadPizzas();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      loadPizzas();
+    }, [])
+  );
 
   return (
     <Container>
