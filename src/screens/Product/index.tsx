@@ -101,41 +101,41 @@ const Product = () => {
     const status = validateFields(true);
 
     if (status == "success") {
-    let photo_url: string;
-    const fileName = new Date().getTime();
-    const reference = storage().ref(`/pizzas/${fileName}.png`);
+      let photo_url: string;
+      const fileName = new Date().getTime();
+      const reference = storage().ref(`/pizzas/${fileName}.png`);
 
-    reference
-      .putFile(image) // URI da imagem
-      .then(async () => {
-        photo_url = await reference.getDownloadURL();
+      reference
+        .putFile(image) // URI da imagem
+        .then(async () => {
+          photo_url = await reference.getDownloadURL();
 
-        firestore()
-          .collection("pizzas")
-          .add({
+          firestore()
+            .collection("pizzas")
+            .add({
               description,
-            name,
-            name_insensitive: name.toLocaleLowerCase().trim(),
-            prices_sizes: {
-              p: priceSizeP,
-              m: priceSizeM,
-              g: priceSizeG,
-            },
-            photo_url: photo_url,
-            photo_path: reference.fullPath,
-          })
-          .then(() => {
-            cleanFields();
+              name,
+              name_insensitive: name.toLocaleLowerCase().trim(),
+              prices_sizes: {
+                p: priceSizeP,
+                m: priceSizeM,
+                g: priceSizeG,
+              },
+              photo_url: photo_url,
+              photo_path: reference.fullPath,
+            })
+            .then(() => {
+              cleanFields();
               navigation.reset({
                 index: 1,
                 routes: [{ name: "home" }],
               });
-          })
-          .catch(() =>
-            Alert.alert("Cadastro", "Não foi possível cadastrar a pizza!")
-          );
-      })
-      .catch((error) => console.log(error));
+            })
+            .catch(() =>
+              Alert.alert("Cadastro", "Não foi possível cadastrar a pizza!")
+            );
+        })
+        .catch((error) => console.log(error));
     } else {
       return Alert.alert("Cadastro", status);
     }
@@ -143,6 +143,26 @@ const Product = () => {
 
   const goBack = () => {
     navigation.goBack();
+  };
+
+  const onDelete = () => {
+    firestore()
+      .collection("pizzas")
+      .doc(id)
+      .delete()
+      .then(() => {
+        storage()
+          .ref(photoPath)
+          .delete()
+          .then(() =>
+            navigation.reset({
+              index: 1,
+              routes: [{ name: "home" }],
+            })
+          )
+          .catch((error) => console.log(error));
+      })
+      .catch((error) => console.log(error));
   };
 
   useEffect(() => {
@@ -174,7 +194,7 @@ const Product = () => {
           <Title>{!id ? "Cadastrar" : name}</Title>
 
           {id ? (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onDelete}>
               <MaterialCommunityIcons
                 name={"trash-can-outline"}
                 size={24}
