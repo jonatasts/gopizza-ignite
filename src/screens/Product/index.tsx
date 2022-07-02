@@ -100,7 +100,7 @@ const Product = () => {
   const onSubmit = () => {
     const status = validateFields(true);
 
-    if (status == "success") {
+    if (status === "success") {
       let photo_url: string;
       const fileName = new Date().getTime();
       const reference = storage().ref(`/pizzas/${fileName}.png`);
