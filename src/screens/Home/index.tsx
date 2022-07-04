@@ -69,7 +69,8 @@ const Home = () => {
   };
 
   const onInfoProduct = (id: string) => {
-    navigation.navigate("product", { id });
+    const route = user?.isAdmin ? "product" : "order";
+    navigation.navigate(route, { id });
   };
 
   const onNewProduct = () => {
