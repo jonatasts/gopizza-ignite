@@ -27,11 +27,15 @@ const Order = () => {
   const [size, setSize] = useState("");
   const navigation = useNavigation();
 
+  const goBack = () => {
+    navigation.goBack();
+  };
+
   return (
     <Container behavior={behavior}>
       <ContentScroll>
         <Header>
-          <ButtonBack onPress={navigation.goBack} style={styles.goBack} />
+          <ButtonBack onPress={goBack} style={styles.goBack} />
         </Header>
 
         <Photo source={{ uri: "https://github.com/jonatasts.png" }} />
