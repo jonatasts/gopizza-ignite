@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Platform } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import ButtonBack from "@components/ButtonBack";
 import RadioButton from "@components/RadioButton";
@@ -24,11 +25,13 @@ import Button from "@components/Button";
 const Order = () => {
   const behavior = Platform.OS === "ios" ? "padding" : undefined;
   const [size, setSize] = useState("");
+  const navigation = useNavigation();
+
   return (
     <Container behavior={behavior}>
       <ContentScroll>
         <Header>
-          <ButtonBack onPress={() => {}} style={styles.goBack} />
+          <ButtonBack onPress={navigation.goBack} style={styles.goBack} />
         </Header>
 
         <Photo source={{ uri: "https://github.com/jonatasts.png" }} />
