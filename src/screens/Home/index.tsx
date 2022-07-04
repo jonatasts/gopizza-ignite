@@ -9,6 +9,8 @@ import Search from "@components/Search";
 import ProductCard from "@components/ProductCard";
 import { ProductProps } from "@components/ProductCard/types";
 
+import { useAuth } from "@hooks/auth";
+
 import happyEmoji from "@assets/happy.png";
 
 import styles, {
@@ -28,6 +30,7 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const { COLORS } = useTheme();
   const navigation = useNavigation();
+  const { singOut } = useAuth();
 
   const loadPizzas = (value = "") => {
     const formattedValue = value.toLocaleLowerCase().trim();
@@ -91,7 +94,7 @@ const Home = () => {
           <GreetingText>Olá, Admin</GreetingText>
         </Greeting>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={singOut}>
           <MaterialIcons name={"logout"} size={24} color={COLORS.TITLE} />
         </TouchableOpacity>
       </Header>
