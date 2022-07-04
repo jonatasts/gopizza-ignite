@@ -30,7 +30,7 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const { COLORS } = useTheme();
   const navigation = useNavigation();
-  const { singOut } = useAuth();
+  const { user, singOut } = useAuth();
 
   const loadPizzas = (value = "") => {
     const formattedValue = value.toLocaleLowerCase().trim();
@@ -121,11 +121,13 @@ const Home = () => {
         contentContainerStyle={styles.listContainer}
       />
 
-      <NewProductButton
-        title={"Cadastrar Pizza"}
-        type={"secondary"}
-        onPress={onNewProduct}
-      />
+      {user?.isAdmin && (
+        <NewProductButton
+          title={"Cadastrar Pizza"}
+          type={"secondary"}
+          onPress={onNewProduct}
+        />
+      )}
     </Container>
   );
 };
