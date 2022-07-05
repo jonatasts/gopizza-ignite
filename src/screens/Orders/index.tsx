@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FlatList } from "react-native";
+import { Alert, FlatList } from "react-native";
 import firestore from "@react-native-firebase/firestore";
 
 import OrderCard from "@components/OrderCard";
@@ -13,6 +13,24 @@ import { OrderProps } from "@screens/Order/types";
 const Orders = () => {
   const [orders, setOrders] = useState<OrderProps[]>([]);
   const { user } = useAuth();
+
+  const onPizzaDelivered = (id: string) => {
+    Alert.alert("Pedido", "Confirmar que a pizza foi entregue?", [
+      { text: "Não", style: "cancel" },
+      {
+        text: "Sim",
+        onPress: () => {
+          firestore()
+            .collection("orders")
+            .doc(id)
+            .update({
+              status: "Entregue",
+            })
+            .catch((error) => console.log(error));
+        },
+      },
+    ]);
+  };
 
   useEffect(() => {
     const subscribe = firestore()
@@ -42,7 +60,12 @@ const Orders = () => {
         data={orders}
         keyExtractor={(item) => item.id}
         renderItem={({ index, item }) => (
-          <OrderCard index={index} data={item} />
+          <OrderCard
+            index={index}
+            data={item}
+            disabled={item.status === "Entregue"}
+            onPress={() => onPizzaDelivered(item.id)}
+          />
         )}
         numColumns={2}
         showsVerticalScrollIndicator={false}
