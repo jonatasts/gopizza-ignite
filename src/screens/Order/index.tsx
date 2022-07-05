@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Platform } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import firestore from "@react-native-firebase/firestore";
 
 import ButtonBack from "@components/ButtonBack";
 import RadioButton from "@components/RadioButton";
@@ -21,15 +22,31 @@ import styles, {
 } from "./styles";
 import { PIZZA_TYPES } from "@utils/pizzaTypes";
 import Button from "@components/Button";
+import { ProductNavigationProps } from "src/@types/navigation";
+import { PizzaProps } from "./types";
 
 const Order = () => {
   const behavior = Platform.OS === "ios" ? "padding" : undefined;
   const [size, setSize] = useState("");
+  const [pizza, setPizza] = useState<PizzaProps>({} as PizzaProps);
   const navigation = useNavigation();
+  const route = useRoute();
+  const { id } = route.params as ProductNavigationProps;
 
   const goBack = () => {
     navigation.goBack();
   };
+
+  useEffect(() => {
+    if (id) {
+      firestore()
+        .collection("pizzas")
+        .doc(id)
+        .get()
+        .then((response) => setPizza(response.data() as PizzaProps))
+        .catch((error) => console.log(error));
+    }
+  }, [id]);
 
   return (
     <Container behavior={behavior}>
@@ -38,10 +55,10 @@ const Order = () => {
           <ButtonBack onPress={goBack} style={styles.goBack} />
         </Header>
 
-        <Photo source={{ uri: "https://github.com/jonatasts.png" }} />
+        <Photo source={{ uri: pizza.photo_url }} />
 
         <Form>
-          <Title>Nome da Pizza</Title>
+          <Title>{pizza.name}</Title>
 
           <Label>Selecione o tamanho</Label>
           <Sizes>
