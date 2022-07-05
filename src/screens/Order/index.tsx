@@ -29,9 +29,15 @@ const Order = () => {
   const behavior = Platform.OS === "ios" ? "padding" : undefined;
   const [size, setSize] = useState("");
   const [pizza, setPizza] = useState<PizzaProps>({} as PizzaProps);
+  const [tableNumber, setTableNumber] = useState("");
+  const [quantity, setQuantity] = useState(0);
+
   const navigation = useNavigation();
   const route = useRoute();
   const { id } = route.params as ProductNavigationProps;
+
+  const amount =
+    size && !isNaN(quantity) ? pizza.prices_sizes[size] * quantity : "0,00";
 
   const goBack = () => {
     navigation.goBack();
@@ -75,16 +81,19 @@ const Order = () => {
           <FormRow>
             <InputGroup>
               <Label>Numero da mesa</Label>
-              <Input keyboardType={"numeric"} />
+              <Input keyboardType={"numeric"} onChangeText={setTableNumber} />
             </InputGroup>
 
             <InputGroup>
               <Label>Quantidade</Label>
-              <Input keyboardType={"numeric"} />
+              <Input
+                keyboardType={"numeric"}
+                onChangeText={(quantity) => setQuantity(parseInt(quantity))}
+              />
             </InputGroup>
           </FormRow>
 
-          <Price>Valor de R$ 00,00</Price>
+          <Price>Valor de R$ {amount}</Price>
 
           <Button title={"Confirmar Pedido"} />
         </Form>

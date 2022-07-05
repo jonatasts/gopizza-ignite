@@ -1,5 +1,5 @@
 import { ProductProps } from "@components/ProductCard/types";
 
 export type PizzaProps = {
-  [key: string]: number;
+  prices_sizes: { [key: string]: number };
 } & ProductProps;
