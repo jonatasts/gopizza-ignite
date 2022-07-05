@@ -10,17 +10,19 @@ import {
 } from "./styles";
 import { OrderCardProps } from "./types";
 
-const OrderCard = ({ index, ...rest }: OrderCardProps) => {
+const OrderCard = ({ index, data, ...rest }: OrderCardProps) => {
   return (
     <Container index={index} {...rest}>
-      <Image source={{ uri: "https://github.com/jonatasts.png" }} />
+      <Image source={{ uri: data.image }} />
 
-      <Name>Margherita</Name>
+      <Name>{data.pizza}</Name>
 
-      <Description>Mesa 5 • Qnt:1</Description>
+      <Description>
+        Mesa {data.table_number} • Qnt: {data.quantity}
+      </Description>
 
-      <StatusContainer status="Preparando">
-        <StatusLabel status="Preparando">Preparando</StatusLabel>
+      <StatusContainer status={data.status}>
+        <StatusLabel status={data.status}>{`${data.status}`}</StatusLabel>
       </StatusContainer>
     </Container>
   );

@@ -10,4 +10,14 @@ export type StatusProps = {
   status: StatusTypeProps;
 };
 
-export type OrderCardProps = ContainerProps & TouchableOpacityProps;
+export type OrderCardProps = { data: OrderProps } & ContainerProps &
+  TouchableOpacityProps;
+
+export type OrderProps = {
+  id: string;
+  quantity: number;
+  pizza: string;
+  table_number: string;
+  status: StatusTypeProps;
+  image: string;
+};
