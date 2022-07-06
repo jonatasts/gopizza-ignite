@@ -6,14 +6,14 @@ https://www.rocketseat.com.br/ignite
 
 ## Features
 
-• Login
-• Recover Password by e-mail
-• Home (based on the logged in user's profile)
-• Search
-• Register Pizza
-• Register Order
-• View Ordes
-• Deliver Order
+• Login <br>
+• Recover Password by e-mail <br>
+• Home (based on the logged in user's profile) <br>
+• Search <br>
+• Register Pizza <br>
+• Register Order <br>
+• View Ordes <br>
+• Deliver Order <br>
 
 ## Admin view screens
 
