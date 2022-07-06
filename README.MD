@@ -17,16 +17,24 @@ https://www.rocketseat.com.br/ignite
 
 ## Admin view screens
 
+<div style="display: flex; flex-direction: row;">
 <img src="pictures/login.png" height="480px">  
 <img src="pictures/home-admin.png" height="480px">  
 <img src="pictures/search.png" height="480px">  
 <img src="pictures/pizza-details-admin.png" height="480px">  
 <img src="pictures/new-pizza-1-admin.png" height="480px">  
 <img src="pictures/new-pizza-2-admin.png" height="480px">
+</div>
 
 ## Waiter view screens
 
+<div style="display: flex; flex-direction: row;">
 <img src="pictures/home-waiter.png" height="480px">  
 <img src="pictures/new-order-waiter.png" height="480px">  
 <img src="pictures/orders-waiter.png" height="480px">  
 <img src="pictures/deliver-order-waiter.png" height="480px">
+</div>
+
+## App
+
+<img src="pictures/go_pizza.gif" height="480px" >
